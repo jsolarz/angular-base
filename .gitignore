@@ -286,3 +286,5 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+TodoList.Web/bower_components/
+TodoListApi/App_Data/Elmah.Errors/
