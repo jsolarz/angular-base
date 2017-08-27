@@ -25,7 +25,8 @@
     "moment": "momentjs#2.18.1",
     "angular-momentjs": "v0.2.2",
     "underscore": "1.8.3",
-    "angular-local-storage": "v0.7.1"
+    "angular-local-storage": "v0.7.1",
+    "angular-xeditable": "0.8.0"
   },
   "resolutions": {
     "angular": "1.6.7-build.5455+sha.233a93f"

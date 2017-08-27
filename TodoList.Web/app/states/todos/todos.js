@@ -35,8 +35,12 @@
     })
 
     .controller('TodosController', function TodosController($scope, $state, Todo, todoData) {
+        //fix for xeditable form
+        $scope.todoList = _.map(todoData, function (todo) {
+            todo.DueDate = new Date(todo.DueDate);
+            return todo;
+        });
 
-        $scope.todoList = todoData;
         $scope.processing = false;
 
         $scope.sortType = 'Priority'; // set the default sort type
@@ -47,6 +51,13 @@
             description: '',
             dueDate: ''
         };
+
+        $scope.priorities = [
+            { value: 1, text: '1' },
+            { value: 2, text: '2' },
+            { value: 3, text: '3' },
+            { value: 4, text: '4' }
+        ];
 
         $scope.save = function Save() {
             $scope.processing = true;
@@ -64,7 +75,7 @@
 
             todo.Status = 1;
 
-            Todo.done({ id: todo.ID, todo: todo }, function (result) {
+            Todo.update({ id: todo.ID }, todo, function (result) {
                 $scope.processing = false;
             }, function (err) {
                 console.log("Error: ", err);
@@ -77,7 +88,6 @@
 
             Todo.remove({ id: id }, function (result) {
                 $scope.processing = false;
-                
                 $scope.todoList = _.without($scope.todoList, _.findWhere($scope.todoList, {
                     ID: id
                 }));
@@ -87,6 +97,25 @@
                 $scope.processing = false;
             });
         };
+
+        $scope.update = function Update(data, id) {
+            $scope.processing = true;
+
+            var todo = _.findWhere($scope.todoList, {
+                ID: id
+            });
+
+            todo.Description = data.Description;
+            todo.Priority = data.Priority;
+            todo.DueDate = data.DueDate;
+
+            Todo.update({ id: id }, todo, function (result) {
+                $scope.processing = false;
+            }, function (err) {
+                console.log("Error: ", err);
+                $scope.processing = false;
+            });
+        }
 
         console.log('TodosController');
     })

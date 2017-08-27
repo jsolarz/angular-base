@@ -9,6 +9,7 @@ angular.module('todoListApp', [
     'angular-momentjs',
     'underscore',
     'LocalStorageModule',
+    'xeditable',
 
     /** States/Routes **/
     'todolist.states.Todos',
@@ -23,10 +24,9 @@ angular.module('todoListApp', [
 
     /** Directives **/
     'todoList.directive.AppCalendar',
+    'todoList.directive.DateInput',
     'todoList.filter.MomentDateTime',
     'todoList.filters.truncate'
-
-
 ])
     .config(function ($urlRouterProvider, $locationProvider, $uiViewScrollProvider, $httpProvider, localStorageServiceProvider, TodoListConfig, $qProvider) {
         $httpProvider.interceptors.push('authInterceptorService');
@@ -60,7 +60,7 @@ angular.module('todoListApp', [
         $uiViewScrollProvider.useAnchorScroll();
         $qProvider.errorOnUnhandledRejections(false);
     })
-    .run(function ($http, $rootScope, $state, $window, $location, Authentication) {
+    .run(function ($http, $rootScope, $state, $window, $location, Authentication, editableOptions) {
         // Enable credientials (ie. cookies etc.) through the $http Angular Service
         $http.defaults.withCredentials = true;
 
@@ -95,6 +95,8 @@ angular.module('todoListApp', [
         }
 
         init();
+
+        editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 
         console.log("Todo List App");
     })

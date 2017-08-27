@@ -70,7 +70,7 @@ namespace TodoList.Api.Controllers
         /// <returns></returns>
         // PUT: api/Todoes/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutTodo(int id, [FromBody]Todo todo)
+        public async Task<IHttpActionResult> PutTodo(int id, Todo todo)
         {
             if (!ModelState.IsValid)
             {
