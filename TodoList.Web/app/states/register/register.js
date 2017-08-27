@@ -20,7 +20,7 @@
         })
     })
 
-    .controller('RegisterController', function RegisterController($scope, $state, Account) {
+    .controller('RegisterController', function RegisterController($scope, $state, Account, Authentication) {
 
         $scope.appUser = {
             Name: '',
@@ -30,12 +30,14 @@
         $scope.processing = false;
 
         $scope.register = function Register() {
+            Authentication.logOut();
+
             $scope.processing = true;
-
-            todo.Status = 1;
-
-            Todo.register($scope.appUser, function (result) {
+            
+            Account.register($scope.appUser, function (result) {
                 $scope.processing = false;
+                console.log(result);
+                $state.go('login');
             }, function (err) {
                 console.log("Error: ", err);
                 $scope.processing = false;

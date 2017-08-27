@@ -33,9 +33,7 @@
         $scope.login = function Login() {
             $scope.processing = true;
             Authentication.login($scope.loginData).then(function (response) {
-
-                $location.path('/todos');
-
+                $state.go('todoes');
             },
             function (err) {
                 $scope.message = err.error_description;

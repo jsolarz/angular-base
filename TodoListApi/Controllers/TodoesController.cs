@@ -3,6 +3,8 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -16,7 +18,6 @@ namespace TodoList.Api.Controllers
     /// Todo list controller
     /// </summary>    
     [Authorize]
-    [Route("api/todoes")]
     public class TodoesController : ApiController
     {
         private TodoListContext db = new TodoListContext();
@@ -27,10 +28,20 @@ namespace TodoList.Api.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: api/Todoes
-        [Route("api/todoes/list/{id}")]
-        public IEnumerable<Todo> GetTodoes(int id)
+        public IEnumerable<Todo> GetTodoes()
         {
-            return db.Todoes.Include(x => x.User).Where(x=>x.UserId == id).ToList();
+            try
+            {
+                ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+                //getting the user id from the authenticated user
+                var userId = int.Parse(principal.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Single().Value);
+
+                return db.Todoes.Include(x => x.User).Where(x => x.UserId == userId).ToList();
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -106,8 +117,20 @@ namespace TodoList.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Todoes.Add(todo);
-            await db.SaveChangesAsync();
+            try
+            {
+                ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+                //getting the user id from the authenticated user
+                var userId = int.Parse(principal.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Single().Value);
+                todo.UserId = userId;
+
+                db.Todoes.Add(todo);
+                await db.SaveChangesAsync();
+            }
+            catch (System.Exception ex)
+            {
+                return InternalServerError(ex);
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = todo.ID }, todo);
         }

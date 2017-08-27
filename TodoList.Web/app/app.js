@@ -31,6 +31,8 @@ angular.module('todoListApp', [
     .config(function ($urlRouterProvider, $locationProvider, $uiViewScrollProvider, $httpProvider, localStorageServiceProvider, TodoListConfig, $qProvider) {
         $httpProvider.interceptors.push('authInterceptorService');
 
+        $locationProvider.html5Mode(true);
+
         /**
          * Normalize URLs and add a trailing slash, if it's missing
          */
@@ -68,8 +70,7 @@ angular.module('todoListApp', [
         };
         $rootScope.url = window.location.href;
 
-        $rootScope.$on('$stateChangeStart', function (e, toState, toParams
-            , fromState, fromParams) {
+        $rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
 
             var isLogin = toState.name === "login";
             if (isLogin) {
@@ -105,7 +106,7 @@ angular.module('todoListApp', [
         init();
 
         $scope.logOut = function () {
-            Authentication_.logOut();
+            Authentication.logOut();
             $state.go('login'); // go to login
         }
 

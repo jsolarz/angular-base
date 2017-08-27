@@ -198,6 +198,10 @@
     <Compile Include="Migrations\201708261647027_Adding-password-to-user.Designer.cs">
       <DependentUpon>201708261647027_Adding-password-to-user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708270846527_UpdatedFields.cs" />
+    <Compile Include="Migrations\201708270846527_UpdatedFields.Designer.cs">
+      <DependentUpon>201708270846527_UpdatedFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Todo.cs" />
     <Compile Include="Models\TodoPriority.cs" />
@@ -213,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708261647027_Adding-password-to-user.resx">
       <DependentUpon>201708261647027_Adding-password-to-user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708270846527_UpdatedFields.resx">
+      <DependentUpon>201708270846527_UpdatedFields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

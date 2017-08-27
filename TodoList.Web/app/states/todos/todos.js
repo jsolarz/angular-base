@@ -28,7 +28,7 @@
             views: {
                 "main": {
                     controller: 'TodosController',
-                    templateUrl: 'app/states/todos/todos.tpl.html'
+                    templateUrl: '/app/states/todos/todos.tpl.html'
                 }
             }
         })
@@ -47,7 +47,6 @@
         $scope.todoItem = {
             priority: 1,
             description: '',
-            userId: 1,
             dueDate: $scope.dt
         };
 

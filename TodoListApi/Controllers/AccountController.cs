@@ -57,17 +57,6 @@ namespace TodoList.Api.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        public async Task<IHttpActionResult> PostLogin(string email, string password)
-        {
-            return Ok();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
