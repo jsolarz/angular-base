@@ -32,6 +32,7 @@ angular.module('todoListApp', [
         $httpProvider.interceptors.push('authInterceptorService');
 
         $locationProvider.html5Mode(true);
+        $locationProvider.hashPrefix('!');
 
         /**
          * Normalize URLs and add a trailing slash, if it's missing
@@ -55,7 +56,7 @@ angular.module('todoListApp', [
          * If no other routes match, simply redirect to the front page
          * (or change this to any other page, like a 404).
          */
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/');
         localStorageServiceProvider.setPrefix(TodoListConfig.LocalStoragePrefix);
         $uiViewScrollProvider.useAnchorScroll();
         $qProvider.errorOnUnhandledRejections(false);
