@@ -72,11 +72,16 @@
             });
         };
 
-        $scope.done = function Done(id) {
+        $scope.remove = function Done(id) {
             $scope.processing = true;
 
             Todo.remove({ id: id }, function (result) {
                 $scope.processing = false;
+                
+                $scope.todoList = _.without($scope.todoList, _.findWhere($scope.todoList, {
+                    ID: id
+                }));
+
             }, function (err) {
                 console.log("Error: ", err);
                 $scope.processing = false;
