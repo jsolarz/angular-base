@@ -98,6 +98,8 @@ angular.module('todoListApp', [
 
         editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 
+        $rootScope.$on("$stateChangeError", console.log.bind(console));
+
         console.log("Todo List App");
     })
     .controller('MainController', ['$scope', '$location', '$state', 'Authentication', '_', function ($scope, $location, $state, Authentication, _) {
